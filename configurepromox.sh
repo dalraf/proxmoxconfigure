@@ -9,7 +9,7 @@ function confirmaexec() {
     then
         $1
     else
-	    read -p "Confirma execucao de $1 ? digite (a) para execucao automatica (y/n/a)"
+	    read -p "Confirma execucao de ==> $1 ? digite (a) para execucao automatica (y/n/a)"
         if [ "$REPLY" == "y" ]
         then
             $1
