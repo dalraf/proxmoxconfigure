@@ -14,6 +14,7 @@ function confirmaexec() {
         then
             $1
         elif [ "$REPLY" == "a" ]
+        then
             AUTOEXEC=true
             $1
         fi
@@ -22,13 +23,13 @@ function confirmaexec() {
 
 perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
-    then
-        apt-get -y install python-pip
-        apt-get -y install python-dev
-        apt-get -y install sshpass
-        pip install ansible
-        ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
-    fi
+then
+    apt-get -y install python-pip
+    apt-get -y install python-dev
+    apt-get -y install sshpass
+    pip install ansible
+    ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
+fi
 
 perguntar "Deseja configurar a raid"
 if [ "$REPLY" == "y" ] 
@@ -49,6 +50,7 @@ then
         confirmaexec "grub-install /dev/sda"
         confirmaexec "grub-install /dev/sdb"
     elif [ "$REPLY" == "10" ]
+    then
         confirmaexec "sgdisk -R=/dev/sda /dev/sdb"
         confirmaexec "sgdisk -R=/dev/sda /dev/sdc"
         confirmaexec "sgdisk -R=/dev/sda /dev/sdd"
