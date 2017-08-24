@@ -1,0 +1,3 @@
+#Udev Arcom
+	SUBSYSTEM=="block", ACTION=="add|change", ENV{ID_FS_LABEL}=="bckarcom", KERNEL=="sd?1", SYMLINK+="arcdrv1", RUN+="/arcom/backup/udevhotbackup hotadd $name", ENV{BCKARCOM}="sim", ENV{REMOVE_CMD}="/arcom/backup/udevhotbackup hotremove $name"
+	

@@ -1,0 +1,4 @@
+- name: Commit arquivos
+  shell: git add {{ arquivo }} ; git commit -m "Alteracao do ansible" chdir=/etc
+  when: result.changed
+  ignore_errors: yes

@@ -1,0 +1,117 @@
+- name: Remove pacote puppet
+  apt: name={{ item }} state=absent
+  with_items: "{{puppetpackages}}"
+
+- name: Desativa repositorio pve
+  apt_repository: repo='deb https://enterprise.proxmox.com/debian wheezy pve-enterprise' state=absent
+  register: disableaptpve
+
+- name: Commit alteração do pve
+  shell: git commit -a -m "Alteracao do ansible" chdir=/etc
+  when: disableaptpve.changed
+  ignore_errors: yes
+
+- name: Instala pacotes do promox
+  apt: name={{ item }} state=present
+  with_items: "{{packagesproxmox}}"
+  when: (( ansible_distribution_version == "7.8" ))
+  tags:
+    - instalarpacotes
+
+- name: Instala pacotes do promox4
+  apt: name={{ item }} state=present
+  with_items: "{{packagesproxmox4}}"
+  when: (( ansible_distribution_version != "7.8" ))
+  tags:
+    - instalarpacotes
+
+
+- name: Verificar serviço cron
+  service: name=cron state=started enabled=yes
+
+- name: Verificar serviço ssh
+  service: name=ssh state=started enabled=yes
+
+- name: Parar ntp
+  service: name=ntp state=stopped enabled=false
+  when: (( ansible_distribution_version == "7.8" ))
+
+- name: Copiar postfix main.cf
+  copy: dest=/etc/postfix/main.cf src=proxmox/etc/postfix/main.cf mode=0644 owner=root group=root
+
+- name: Copiar modules
+  copy: dest=/etc/modules src=proxmox/etc/modules  mode=0644 owner=root group=root
+
+- name: Copiar 99-arcom.rules
+  copy: dest=/etc/udev/rules.d/99-arcom.rules src=proxmox/etc/udev/rules.d/99-arcom.rules mode=0644 owner=root group=root
+
+- name: Copiar openvpn
+  copy: dest=/etc/openvpn src=proxmox/etc/openvpn/  mode=0644 owner=root group=root  force=no
+
+- name: Marcar como executavel openvpn
+  copy: dest={{ item }} src=proxmox{{ item }}  mode=0755 owner=root group=root force=yes
+  with_items: "{{filesexecopenvpn}}"
+
+- name: Verificar permissões do /etc/ssh
+  file: path=/etc/ssh state=directory owner=root group=root mode=0755
+
+- name: Copiar configuração ssh
+  copy: dest=/etc/ssh src=proxmox/etc/ssh/  mode=0644 owner=root group=root
+  notify: ssh
+
+- name: Copiar configuração stunnel
+  copy: dest=/etc/stunnel src=proxmox/etc/stunnel/  mode=0644 owner=root group=root
+
+- name: Adicionado linhas fortinet
+  lineinfile: dest=/etc/rc.local regexp="^#screen -d -m bash" insertafter="# By default this script does nothing." line="#screen -d -m bash -c \"while true ; do smbclient  //10.11.72.2/c$ log1973@sco -U administrador -W scentrooeste ; sleep 5 ; done\""
+  register: rclocalfile
+
+- name: Adicionado linhas ebtables
+  lineinfile: dest=/etc/rc.local regexp="#ebtables -A FORWARD -i " insertafter="^#screen -d -m bash" line="#ebtables -A FORWARD -i eth2 -p arp --arp-ip-src 192.168.4.0/24 -j DROP"
+  register: rclocalfile
+
+
+- name: Copia ntp
+  copy: dest=/etc/default/ntp src=proxmox/etc/default/ntp  mode=0644 owner=root group=root
+
+- name: Copia .gitignore
+  copy: dest=/etc/.gitignore src=proxmox/proxmoxgitignoreetc  mode=0700 owner=root group=root
+
+- name: Rodar metastore
+  command: /usr/bin/metastore -s creates=/etc/.metadata chdir=/etc
+
+- name: Rodar git init
+  command: /usr/bin/git init creates=/etc/.git chdir=/etc
+
+- name: Definir permissões de diretorio git do etc
+  file: path=/etc/.git state=directory mode=0700 owner=root group=root
+
+- name: Script firewall
+  template: src=firewallarcomstart.j2 dest=/etc/firewallarcomstart mode=0755 owner=root group=root
+  register: scriptfirewallstate
+  tags:
+    - firewall
+
+- name: Adicionado start do firewall
+  blockinfile:
+    state: present
+    dest: /etc/rc.local
+    marker: "# {mark} Firewall padrao"
+    block: |
+      /etc/firewallarcomstart start
+  register: rclocalfile
+  tags:
+    - firewall
+
+- name: Iniciar firewall
+  shell: /etc/firewallarcomstart stop ; /etc/firewallarcomstart start
+  ignore_errors: yes
+  tags:
+    - firewall
+
+
+- name: Verificar alteração de arquivo
+  include: libs/commit.yml result={{ item.result }} arquivo={{ item.arquivo }}
+  with_items:
+    - { result: "{{ rclocalfile }}" , arquivo: "/etc/rc.local" }
+    - { result: "{{ scriptfirewallstate }}" , arquivo: "/etc/firewallarcomstart" }

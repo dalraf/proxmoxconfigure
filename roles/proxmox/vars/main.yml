@@ -1,0 +1,43 @@
+arquivospromox:
+  1:
+    path: "/etc/postfix/main.cf"
+    src: "/etc/postfix/main.cf" 
+    permissao: "0644"
+    state: "file"
+  2: 
+    path: "/etc/cron.d/arcom"
+    src: "/etc/cron.d/arcom"
+    permissao: "0644"
+    state: "file"
+  3: 
+    path: "/etc/modules"
+    src: "/etc/modules"
+    permissao: "0644"
+    state: "file"
+  4: 
+    path: "/etc/udev/rules.d/99-arcom.rules"
+    src: "/etc/udev/rules.d/99-arcom.rules"
+    permissao: "0644"
+    state: "file"
+  5: 
+    path: "/etc/nagios"
+    src: "/etc/nagios/"
+    permissao: "0644"
+    state: "directory"
+  6: 
+    path: "/etc/openvpn"
+    src: "/etc/openvpn/"
+    permissao: "0644"
+    state: "directory"
+  7: 
+    path: "/etc/ssh"
+    src: "/etc/ssh/"
+    permissao: "0644"
+    state: "directory"
+  8: 
+    path: "/etc/stunnel"
+    src: "/etc/stunnel/"
+    permissao: "0644"
+    state: "directory"
+
+

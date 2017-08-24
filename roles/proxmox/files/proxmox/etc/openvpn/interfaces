@@ -1,0 +1,8 @@
+auto br0
+iface br0 inet static
+	address 192.168.0.254
+	netmask 255.255.255.0
+	bridge_ports eth0 eth1 tap9
+        pre-up openvpn --mktun --dev tap9
+        post-down openvpn --rmtun --dev tap9
+	bridge_maxwait 0

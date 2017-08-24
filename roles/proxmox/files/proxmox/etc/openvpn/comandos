@@ -1,0 +1,1 @@
+iptables -t filter -A FORWARD -o tun0 -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1400:1536 -j TCPMSS --clamp-mss-to-pmtu

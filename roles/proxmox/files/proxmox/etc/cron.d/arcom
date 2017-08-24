@@ -1,0 +1,4 @@
+
+#Adicionado pela Arcom
+* * * * * 	root 	/arcom/proxmox/watchdog >/dev/null 2>&1 
+#

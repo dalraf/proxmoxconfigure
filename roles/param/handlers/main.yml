@@ -1,0 +1,23 @@
+- name: cron
+  service: name=cron state=restarted
+
+- name: ssh
+  service: name=ssh state=restarted
+
+- name: postfix
+  service: name=postfix state=restarted
+
+- name: dovecot
+  service: name=dovecot state=restarted
+
+- name: salt-master
+  service: name=salt-master state=restarted
+
+- name: salt-minion
+  service: name=salt-minion state=restarted
+
+- name: nrpe 
+  command: /bin/bash -c "killall nrpe;/etc/init.d/nagios-nrpe-server start"
+
+- name: sysctl
+  command: /sbin/sysctl -p /etc/sysctl.conf

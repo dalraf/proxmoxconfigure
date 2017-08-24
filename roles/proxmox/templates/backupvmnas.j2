@@ -1,0 +1,28 @@
+#!/bin/bash
+if ! df -h /mnt/pve/NAS | grep "100%"
+then
+    echo 4 > {{ nagiosbackupresult }}
+    {% if cleanupbackup %}
+    rm /mnt/pve/NAS/dump/*vma | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+    rm /mnt/pve/NAS/dump/*vma.gz | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+    rm /mnt/pve/NAS/dump/*vma.lzo | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+    {% endif %}
+    if tar -czf /mnt/pve/NAS/etc.tar.gz /etc >> {{ logbackup }} 2>&1
+	then
+	echo "Backup etc efetuado com sucesso" | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+	else
+	echo 2 > {{ nagiosbackupresult }}
+	echo "Backup etc efetuado com erro" | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+	fi
+    if vzdump --quiet 1 --mailnotification always --mode snapshot --all 1 --maxfiles {{ bcknumerodecopias }} --compress gzip --storage NAS >> {{ logbackup }} 2>&1
+	then
+	echo "Backup efetuado com sucesso" | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+	else
+	echo 2 > {{ nagiosbackupresult }}
+	echo "Backup efetuado com erro" | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+	fi
+else
+	echo 1 > {{ nagiosbackupresult }}
+	echo "NAS a 100%, backup desativado" | awk '{ print strftime("%d/%m/%Y %H:%M:%S: "), $0; fflush(); }' | tee -a {{ logbackup }} 2>&1
+fi
+[[ $(cat {{ nagiosbackupresult }} ) == 4 ]] && echo 0 > {{ nagiosbackupresult }}

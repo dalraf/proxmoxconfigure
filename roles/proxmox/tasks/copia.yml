@@ -1,0 +1,5 @@
+-  debug: msg="Copiando arquivo {{ arquivo }}"
+
+-  synchronize: dest={{ arquivo }} src=proxmox{{ src }}
+
+-  file: path={{ arquivo }} state={{ state }} mode={{ permissao }} owner=root group=root

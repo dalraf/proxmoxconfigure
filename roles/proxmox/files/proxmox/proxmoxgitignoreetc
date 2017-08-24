@@ -1,0 +1,13 @@
+*.log
+*~
+mtab
+adjtime
+lvm/archive
+lvm/backup
+qemu/autostart
+pve
+blkid.tab
+blkid.tab.old
+webmin
+apparmor.d
+

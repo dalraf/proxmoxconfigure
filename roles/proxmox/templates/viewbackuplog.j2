@@ -1,0 +1,3 @@
+#!/bin/bash
+( for i in $(ls -tr /var/log/syslog*gz 2>&1 ) ; do zcat $i ; done ; [ -f /var/log/syslog.1 ] && cat /var/log/syslog.1 ; [ -f /var/log/syslog ] && cat /var/log/syslog ) | grep vzdump
+( for i in $(ls -tr {{ logbackup }}*gz 2>/dev/null) ; do [ -f $i ] && zcat $i  ; done ; [ -f {{ logbackup }}.1 ] && cat {{ logbackup }}.1 ; [ -f {{ logbackup }} ] && cat {{ logbackup }} )

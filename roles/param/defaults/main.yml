@@ -1,0 +1,5 @@
+usesync: false
+nagiosbackupresult: "/arcomutils/nagiosstate"
+syncnagioserro: "/arcomutils/nagiosstatesync"
+logbackup: "/var/log/backuparcom.log"
+diretoriobase: "/arcomutils"
