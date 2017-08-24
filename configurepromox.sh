@@ -72,5 +72,14 @@ then
     fi
 
 fi
+perguntar "Deseja baixa algumas isos padrão?"
+if [ "$REPLY" == "y" ]
+then
+    cd /var/lib/vz/template/iso
+    wget https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+    gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+    wget http://c3sl.dl.osdn.jp/clonezilla/67925/clonezilla-live-2.5.2-17-amd64.iso
+    wget https://ufpr.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.3/systemrescuecd-x86-5.0.3.iso
+fi
 
 
