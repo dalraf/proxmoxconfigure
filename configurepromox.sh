@@ -1,23 +1,35 @@
 #/bin/bash
-apt-get -y install python-pip
-apt-get -y install python-dev
-apt-get -y install sshpass
-pip install ansible
-ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
-
 function perguntar() {
 	read -p "$1 ?(y/n)"
 	return 0
 }
 
 function confirmaexec() {
-	read -p "Confirma execucao de $1 ?(y/n)"
-    if [ "$REPLY" == "y" ]
-        then
+    if AUTOEXEC
+    then
         $1
+    else
+	    read -p "Confirma execucao de $1 ?(y/n) digite (a) para execucao automatica"
+        if [ "$REPLY" == "y" ]
+            then
+            $1
+        elif [ "$REPLY" == "a" ]
+            then
+                AUTOEXEC=true
+            fi
+	    return 0
     fi
-	return 0
 }
+
+perguntar "Deseja configurar o servidor com ansible"
+if [ "$REPLY" == "y" ] 
+    then
+        apt-get -y install python-pip
+        apt-get -y install python-dev
+        apt-get -y install sshpass
+        pip install ansible
+        ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
+    fi
 
 perguntar "Deseja configurar a raid"
 if [ "$REPLY" == "y" ] 
