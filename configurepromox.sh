@@ -5,7 +5,7 @@ function perguntar() {
 }
 
 function confirmaexec() {
-    if AUTOEXEC
+    if AUTOEXEC || false
     then
         $1
     else
