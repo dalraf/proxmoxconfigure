@@ -5,7 +5,7 @@ function perguntar() {
 }
 
 function confirmaexec() {
-    if AUTOEXEC || false
+    if [ "AUTOEXEC" == "sim" ]
     then
         $1
     else
@@ -15,7 +15,7 @@ function confirmaexec() {
             $1
         elif [ "$REPLY" == "a" ]
         then
-            AUTOEXEC=true
+            AUTOEXEC="sim"
             $1
         fi
     fi
