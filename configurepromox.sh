@@ -1,6 +1,6 @@
 #/bin/bash
 function perguntar() {
-	read -p "$1 ?(y/n)"
+	read -p "$1 ?(y/n) "
 	return 0
 }
 
@@ -9,15 +9,14 @@ function confirmaexec() {
     then
         $1
     else
-	    read -p "Confirma execucao de $1 ?(y/n) digite (a) para execucao automatica"
+	    read -p "Confirma execucao de $1 ? digite (a) para execucao automatica (y/n/a)"
         if [ "$REPLY" == "y" ]
-            then
+        then
             $1
         elif [ "$REPLY" == "a" ]
-            then
-                AUTOEXEC=true
-            fi
-	    return 0
+            AUTOEXEC=true
+            $1
+        fi
     fi
 }
 
