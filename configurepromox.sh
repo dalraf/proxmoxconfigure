@@ -27,9 +27,9 @@ then
     apt-get install build-essential libssl-dev libffi-dev python-dev
     apt-get install python-pip
     pip install -U pip
-    pip install Jinja2 --upgrade
-    pip install cryptography --upgrade
-    pip install ansible --upgrade
+    pip install Jinja2
+    pip install cryptography
+    pip install ansible
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
 fi
 
