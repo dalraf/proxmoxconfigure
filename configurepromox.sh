@@ -24,7 +24,8 @@ function confirmaexec() {
 perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
 then
-    apt-get -u install build-essential
+    apt-get -y install build-essential
+    apt-get -y install libffi-dev
     apt-get -y install python-pip
     apt-get -y install python-dev
     apt-get -y install sshpass
