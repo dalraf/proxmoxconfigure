@@ -26,7 +26,7 @@ if [ "$REPLY" == "y" ]
 then
     #echo -e "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main\n" >> /etc/apt/sources.list
     apt-get update
-    apt-get install -y software-properties-common
+    apt-get -y install  software-properties-common
     apt-add-repository -y ppa:ansible/ansible
     apt-get update
     apt-get -y install ansible
