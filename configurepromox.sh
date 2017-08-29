@@ -24,13 +24,12 @@ function confirmaexec() {
 perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
 then
-    apt-get -y install build-essential
-    apt-get -y install libssl-dev
-    apt-get -y install libffi-dev
-    apt-get -y install python-pip
-    apt-get -y install python-dev
-    apt-get -y install sshpass
-    pip install ansible
+    #echo -e "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main\n" >> /etc/apt/sources.list
+    apt-get update
+    apt-get install software-properties-common
+    apt-add-repository -y ppa:ansible/ansible
+    apt-get update
+    apt-get -y install ansible
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
 fi
 
