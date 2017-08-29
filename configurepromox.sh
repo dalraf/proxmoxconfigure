@@ -24,8 +24,13 @@ function confirmaexec() {
 perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
 then
-    apt-get update
-    apt-get -y install ansible
+    apt-get install build-essential libssl-dev libffi-dev python-dev
+    apt-get purge -y python-pip
+    wget https://bootstrap.pypa.io/get-pip.py
+    python ./get-pip.py
+    apt-get install python-pip
+    pip install cryptography --upgrade
+    pip install ansible --upgrade
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
 fi
 
