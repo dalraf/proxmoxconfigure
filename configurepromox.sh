@@ -40,7 +40,7 @@ then
     perguntar "Qual tipo de raid (1 ou 10)"
     if [ "$REPLY" == "1" ]
     then
-        confirmaexec "sgdisk -R=/dev/sda /dev/sdb"
+        confirmaexec "sgdisk -R=/dev/sdb /dev/sda"
         confirmaexec "dd if=/dev/sda1 of=/dev/sdb1"
         confirmaexec "dd if=/dev/sda2 of=/dev/sdb2"
         confirmaexec "mdadm --create -l1 -n2 /dev/md0 /dev/sdb3 missing"
@@ -54,9 +54,9 @@ then
         confirmaexec "grub-install /dev/sdb"
     elif [ "$REPLY" == "10" ]
     then
-        confirmaexec "sgdisk -R=/dev/sda /dev/sdb"
-        confirmaexec "sgdisk -R=/dev/sda /dev/sdc"
-        confirmaexec "sgdisk -R=/dev/sda /dev/sdd"
+        confirmaexec "sgdisk -R=/dev/sdb /dev/sda"
+        confirmaexec "sgdisk -R=/dev/sdc /dev/sda"
+        confirmaexec "sgdisk -R=/dev/sdd /dev/sda"
         confirmaexec "dd if=/dev/sda1 of=/dev/sdb1"
         confirmaexec "dd if=/dev/sda2 of=/dev/sdb2"
         confirmaexec "dd if=/dev/sda1 of=/dev/sdc1"
