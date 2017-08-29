@@ -25,10 +25,8 @@ perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
 then
     apt-get install build-essential libssl-dev libffi-dev python-dev
-    apt-get purge -y python-pip
-    wget https://bootstrap.pypa.io/get-pip.py
-    python ./get-pip.py
     apt-get install python-pip
+    pip install -U pip
     pip install Jinja2 --upgrade
     pip install cryptography --upgrade
     pip install ansible --upgrade
