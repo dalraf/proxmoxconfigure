@@ -46,7 +46,7 @@ then
         confirmaexec "pvcreate /dev/md0"
         confirmaexec "vgextend pve /dev/md0"
         confirmaexec "pvmove /dev/sda3 /dev/md0"
-        confirmaexec "vgreduce /dev/sda3"
+        confirmaexec "vgreduce pve /dev/sda3"
         confirmaexec "mdadm --add /dev/md0 /dev/sda3"
         confirmaexec "update-grub"
         confirmaexec "grub-install /dev/sda"
