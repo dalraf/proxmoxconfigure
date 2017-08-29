@@ -29,6 +29,7 @@ then
     wget https://bootstrap.pypa.io/get-pip.py
     python ./get-pip.py
     apt-get install python-pip
+    pip install Jinja2 --upgrade
     pip install cryptography --upgrade
     pip install ansible --upgrade
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
