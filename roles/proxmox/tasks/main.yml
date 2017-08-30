@@ -92,6 +92,7 @@
     marker: "# {mark} Firewall padrao"
     block: |
       /etc/firewallarcomstart start
+  ignore_errors: yes
   register: rclocalfile
   tags:
     - firewall
