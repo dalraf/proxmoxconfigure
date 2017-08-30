@@ -15,7 +15,7 @@
   ignore_errors: yes
 
 - name: Instala pacotes do promox
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present update_cache=no
   with_items: "{{packagesproxmox}}"
   when: (( ansible_distribution_version == "7.8" ))
   tags:
@@ -23,7 +23,7 @@
   ignore_errors: yes
 
 - name: Instala pacotes do promox4
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present update_cache=no
   with_items: "{{packagesproxmox4}}"
   when: (( ansible_distribution_version != "7.8" ))
   tags:
@@ -70,10 +70,13 @@
 - name: Adicionado linhas fortinet
   lineinfile: dest=/etc/rc.local regexp="^#screen -d -m bash" insertafter="# By default this script does nothing." line="#screen -d -m bash -c \"while true ; do smbclient  //10.11.72.2/c$ log1973@sco -U administrador -W scentrooeste ; sleep 5 ; done\""
   register: rclocalfile
+  ignore_errors: yes
+  
 
 - name: Adicionado linhas ebtables
   lineinfile: dest=/etc/rc.local regexp="#ebtables -A FORWARD -i " insertafter="^#screen -d -m bash" line="#ebtables -A FORWARD -i eth2 -p arp --arp-ip-src 192.168.4.0/24 -j DROP"
   register: rclocalfile
+  ignore_errors: yes
 
 
 - name: Copia ntp
