@@ -1,10 +1,13 @@
-- name: Remove pacote puppet
-  apt: name={{ item }} state=absent
-  with_items: "{{puppetpackages}}"
-
-- name: Desativa repositorio pve
+- name: Desativa repositorio pve wheezy
   apt_repository: repo='deb https://enterprise.proxmox.com/debian wheezy pve-enterprise' state=absent
   register: disableaptpve
+  ignore_errors: yes
+
+- name: Desativa repositorio pve stretch
+  apt_repository: repo='deb https://enterprise.proxmox.com/debian stretch pve-enterprise' state=absent
+  register: disableaptpve
+  ignore_errors: yes
+
 
 - name: Commit alteração do pve
   shell: git commit -a -m "Alteracao do ansible" chdir=/etc
@@ -17,6 +20,7 @@
   when: (( ansible_distribution_version == "7.8" ))
   tags:
     - instalarpacotes
+  ignore_errors: yes
 
 - name: Instala pacotes do promox4
   apt: name={{ item }} state=present
@@ -24,6 +28,7 @@
   when: (( ansible_distribution_version != "7.8" ))
   tags:
     - instalarpacotes
+  ignore_errors: yes
 
 
 - name: Verificar serviço cron
