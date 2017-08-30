@@ -4,7 +4,7 @@
   ignore_errors: yes
 
 - name: Desativa repositorio pve stretch
-  apt_repository: repo='deb https://enterprise.proxmox.com/debian stretch pve-enterprise' state=absent
+  apt_repository: repo='deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise' state=absent
   register: disableaptpve
   ignore_errors: yes
 
