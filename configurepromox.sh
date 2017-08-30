@@ -24,8 +24,8 @@ function confirmaexec() {
 perguntar "Deseja configurar o servidor com ansible"
 if [ "$REPLY" == "y" ] 
 then
-    apt-get install build-essential libssl-dev libffi-dev python-dev
-    apt-get install python-pip
+    apt-get -y install build-essential libssl-dev libffi-dev python-dev
+    apt-get -y install python-pip
     pip install -U pip
     pip install Jinja2
     pip install cryptography
