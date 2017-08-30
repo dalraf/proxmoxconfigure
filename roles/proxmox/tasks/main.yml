@@ -1,31 +1,16 @@
-- name: Desativa repositorio pve wheezy
-  apt_repository: repo='deb https://enterprise.proxmox.com/debian wheezy pve-enterprise' state=absent
-  register: disableaptpve
-  ignore_errors: yes
 
-- name: Desativa repositorio pve stretch
-  apt_repository: repo='deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise' state=absent
-  register: disableaptpve
-  ignore_errors: yes
+- name: Verificar lista pve
+  stat: path=/etc/apt/sources.list.d/pve-enterprise.list
+  register: pvelista
 
-
-- name: Commit alteração do pve
-  shell: git commit -a -m "Alteracao do ansible" chdir=/etc
-  when: disableaptpve.changed
+- name: Renomear pve lista
+  shell: mv /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enterprise.disable ; apt-get update
+  when: pvelista
   ignore_errors: yes
 
 - name: Instala pacotes do promox
   apt: name={{ item }} state=present update_cache=no
-  with_items: "{{packagesproxmox}}"
-  when: (( ansible_distribution_version == "7.8" ))
-  tags:
-    - instalarpacotes
-  ignore_errors: yes
-
-- name: Instala pacotes do promox4
-  apt: name={{ item }} state=present update_cache=no
   with_items: "{{packagesproxmox4}}"
-  when: (( ansible_distribution_version != "7.8" ))
   tags:
     - instalarpacotes
   ignore_errors: yes
