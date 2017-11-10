@@ -29,7 +29,7 @@ then
     pip install -U pip
     pip install Jinja2
     pip install cryptography
-    pip install ansible
+    pip install ansible==2.3.2.0
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
 fi
 
