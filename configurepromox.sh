@@ -29,7 +29,7 @@ then
     pip install -U pip
     pip install Jinja2
     pip install cryptography
-    pip install ansible
+    pip install ansible==2.3.2.0
     ansible-playbook --ask-vault-pass -i "localhost," installproxmox.yml
 fi
 
@@ -78,12 +78,12 @@ perguntar "Deseja baixa algumas isos padrão?"
 if [ "$REPLY" == "y" ]
 then
     cd /var/lib/vz/template/iso
-    wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+    wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.1-RELEASE-amd64.iso.gz
     gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
     wget -c http://c3sl.dl.osdn.jp/clonezilla/67925/clonezilla-live-2.5.2-17-amd64.iso
     wget -c https://ufpr.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.3/systemrescuecd-x86-5.0.3.iso
     wget -c https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
-    wget -c https://ufpr.dl.sourceforge.net/project/nas4free/NAS4Free-11.1.0.4/11.1.0.4.4551/NAS4Free-x64-LiveCD-11.1.0.4.4551.iso
+    wget -c https://ufpr.dl.sourceforge.net/project/nas4free/NAS4Free-11.1.0.4/11.1.0.4.4812/NAS4Free-x64-LiveCD-11.1.0.4.4812.iso
 fi
 
 
