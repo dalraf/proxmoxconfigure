@@ -62,7 +62,7 @@ then
         confirmaexec "dd if=/dev/sda2 of=/dev/sdc2"
         confirmaexec "dd if=/dev/sda1 of=/dev/sdd1"
         confirmaexec "dd if=/dev/sda2 of=/dev/sdd2"       
-        confirmaexec "mdadm --create -l10 -n3 /dev/md0 /dev/sdb3 /dev/sdc3 /dev/sdd3 missing"
+        confirmaexec "mdadm --create -l10 -n4 /dev/md0 /dev/sdb3 /dev/sdc3 /dev/sdd3 missing"
         confirmaexec "pvcreate /dev/md0"
         confirmaexec "vgextend pve /dev/md0"
         confirmaexec "pvmove /dev/sda3 /dev/md0"
