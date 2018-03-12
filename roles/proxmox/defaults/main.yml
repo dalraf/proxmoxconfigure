@@ -1,8 +1,8 @@
 bcknumerodecopias: 2
 cleanupbackup: false
-packagesproxmox: ["rsync", "git-core", "emacs23-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted" ,"smbclient", "stunnel4" , "ebtables" ]
+packagesproxmox: ["rsync", "git-core", "emacs23-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted" ,"smbclient", "stunnel4" , "ebtables", "unzip" ]
 
-packagesproxmox4: ["rsync", "git-core", "emacs24-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted", "smbclient" , "stunnel4" , "ebtables" ]
+packagesproxmox4: ["rsync", "git-core", "emacs24-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted", "smbclient" , "stunnel4" , "ebtables", "unzip" ]
 
 filesexecopenvpn: ["/etc/openvpn/easy-rsa/build-ca","/etc/openvpn/easy-rsa/build-key","/etc/openvpn/easy-rsa/build-key-server","/etc/openvpn/easy-rsa/clean-all","/etc/openvpn/easy-rsa/pkitool","/etc/openvpn/easy-rsa/sign-req","/etc/openvpn/easy-rsa/build-dh","/etc/openvpn/easy-rsa/build-key-pass","/etc/openvpn/easy-rsa/build-req","/etc/openvpn/easy-rsa/inherit-inter","/etc/openvpn/easy-rsa/build-inter","/etc/openvpn/easy-rsa/build-key-pkcs12","/etc/openvpn/easy-rsa/build-req-pass","/etc/openvpn/easy-rsa/list-crl","/etc/openvpn/easy-rsa/revoke-full","/etc/openvpn/easy-rsa/whichopensslcnf"]
 
