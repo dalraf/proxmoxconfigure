@@ -4,7 +4,7 @@
   register: pvelista
 
 - name: Renomear pve lista
-  shell: mv /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enterprise.list.disable ; apt-get update
+  shell: rm /etc/apt/sources.list.d/pve-enterprise.list ; apt-get update
   when: pvelista
   ignore_errors: yes
 
