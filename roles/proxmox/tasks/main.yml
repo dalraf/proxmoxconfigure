@@ -52,18 +52,6 @@
 - name: Copiar configuração stunnel
   copy: dest=/etc/stunnel src=proxmox/etc/stunnel/  mode=0644 owner=root group=root
 
-- name: Adicionado linhas fortinet
-  lineinfile: dest=/etc/rc.local regexp="^#screen -d -m bash" insertafter="# By default this script does nothing." line="#screen -d -m bash -c \"while true ; do smbclient  //10.11.72.2/c$ log1973@sco -U administrador -W scentrooeste ; sleep 5 ; done\""
-  register: rclocalfile
-  ignore_errors: yes
-  
-
-- name: Adicionado linhas ebtables
-  lineinfile: dest=/etc/rc.local regexp="#ebtables -A FORWARD -i " insertafter="^#screen -d -m bash" line="#ebtables -A FORWARD -i eth2 -p arp --arp-ip-src 192.168.4.0/24 -j DROP"
-  register: rclocalfile
-  ignore_errors: yes
-
-
 - name: Copia ntp
   copy: dest=/etc/default/ntp src=proxmox/etc/default/ntp  mode=0644 owner=root group=root
 
@@ -78,34 +66,3 @@
 
 - name: Definir permissões de diretorio git do etc
   file: path=/etc/.git state=directory mode=0700 owner=root group=root
-
-- name: Script firewall
-  template: src=firewallarcomstart.j2 dest=/etc/firewallarcomstart mode=0755 owner=root group=root
-  register: scriptfirewallstate
-  tags:
-    - firewall
-
-- name: Adicionado start do firewall
-  blockinfile:
-    state: present
-    dest: /etc/rc.local
-    marker: "# {mark} Firewall padrao"
-    block: |
-      /etc/firewallarcomstart start
-  ignore_errors: yes
-  register: rclocalfile
-  tags:
-    - firewall
-
-- name: Iniciar firewall
-  shell: /etc/firewallarcomstart stop ; /etc/firewallarcomstart start
-  ignore_errors: yes
-  tags:
-    - firewall
-
-
-- name: Verificar alteração de arquivo
-  include: libs/commit.yml result={{ item.result }} arquivo={{ item.arquivo }}
-  with_items:
-    - { result: "{{ rclocalfile }}" , arquivo: "/etc/rc.local" }
-    - { result: "{{ scriptfirewallstate }}" , arquivo: "/etc/firewallarcomstart" }
