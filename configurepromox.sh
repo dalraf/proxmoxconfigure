@@ -99,7 +99,7 @@ if [ "$REPLY" == "y" ]
 then
     cd /var/lib/vz/template/iso
     wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.1-RELEASE-amd64.iso.gz
-    gunzip pfSense-CE-2.3.4-RELEASE-amd64.iso.gz
+    gunzip pfSense*.iso.gz
     wget -c http://c3sl.dl.osdn.jp/clonezilla/67925/clonezilla-live-2.5.2-17-amd64.iso
     wget -c https://ufpr.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.3/systemrescuecd-x86-5.0.3.iso
     wget -c https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
