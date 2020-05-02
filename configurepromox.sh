@@ -98,12 +98,12 @@ perguntar "Deseja baixa algumas isos padrão?"
 if [ "$REPLY" == "y" ]
 then
     cd /var/lib/vz/template/iso
-    wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.3-RELEASE-amd64.iso.gz
+    wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.5-RELEASE-amd64.iso.gz
     gunzip pfSense*.iso.gz
-    wget -c http://c3sl.dl.osdn.jp/clonezilla/67925/clonezilla-live-2.5.2-17-amd64.iso
-    wget -c https://ufpr.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/5.0.3/systemrescuecd-x86-5.0.3.iso
+    wget -c https://mirrors.gigenet.com/OSDN//clonezilla/72478/clonezilla-live-20200302-eoan-amd64.iso
+    wget -c https://plug-mirror.rcac.purdue.edu/osdn//storage/g/s/sy/systemrescuecd/releases/6.1.3/systemrescuecd-amd64-6.1.3.iso
     wget -c https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
-    wget -c https://ufpr.dl.sourceforge.net/project/nas4free/NAS4Free-11.1.0.4/11.1.0.4.5673/NAS4Free-x64-LiveCD-11.1.0.4.5673.iso
+    wget -c https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso
 fi
 
 
