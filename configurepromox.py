@@ -5,6 +5,36 @@ from __future__ import print_function
 import os
 import subprocess
 import glob
+import requests
+
+def download_file_from_google_drive(id, destination):
+    URL = "https://docs.google.com/uc?export=download"
+
+    session = requests.Session()
+
+    response = session.get(URL, params = { 'id' : id }, stream = True)
+    token = get_confirm_token(response)
+
+    if token:
+        params = { 'id' : id, 'confirm' : token }
+        response = session.get(URL, params = params, stream = True)
+
+    save_response_content(response, destination)    
+
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith('download_warning'):
+            return value
+
+    return None
+
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
+
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk: # filter out keep-alive new chunks
+                f.write(chunk)
 
 
 def Str(value):
@@ -125,3 +155,7 @@ if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
         "wget -c https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso", shell=True)
     subprocess.call(
         "wget -c https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso", shell=True)
+    os.chdir("/var/lib/vz/template/cache")
+    file_id = '1CzTt6IBI3y4IJQ2U6hTA7u7A7E5soOu2
+    destination = './zabbix.tar.gz'
+    download_file_from_google_drive(file_id, destination)
