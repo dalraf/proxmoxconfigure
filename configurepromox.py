@@ -156,6 +156,6 @@ if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
     subprocess.call(
         "wget -c https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso", shell=True)
     os.chdir("/var/lib/vz/template/cache")
-    file_id = '1CzTt6IBI3y4IJQ2U6hTA7u7A7E5soOu2
+    file_id = '1CzTt6IBI3y4IJQ2U6hTA7u7A7E5soOu2'
     destination = './zabbix.tar.gz'
     download_file_from_google_drive(file_id, destination)
