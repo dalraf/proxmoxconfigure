@@ -6,6 +6,38 @@ import os
 import subprocess
 import glob
 import requests
+isolist = [
+    "https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.5-RELEASE-amd64.iso.gz",
+    "https://mirrors.gigenet.com/OSDN//clonezilla/72478/clonezilla-live-20200302-eoan-amd64.iso",
+    "https://plug-mirror.rcac.purdue.edu/osdn//storage/g/s/sy/systemrescuecd/releases/6.1.3/systemrescuecd-amd64-6.1.3.iso",
+    "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso"
+    "https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso"
+
+]
+
+def Str(value):
+    if isinstance(value, list):
+        return " ".join(value)
+    if isinstance(value, basestring):
+        return value
+    return str(value)
+
+
+def Glob(value):
+    ret = glob.glob(value)
+    if (len(ret) < 1):
+        ret = [value]
+    return ret
+
+
+def downloadwgetisos(url):
+    os.chdir("/var/lib/vz/template/iso")
+    for iso in isolist:
+        subprocess.call(
+            "wget -c " + iso, shell=True, stdout=FNULL, stderr=subprocess.STDOUT)
+    subprocess.call("gunzip" + Str(Glob("pfSense*.iso.gz")), shell=True)
+    
+
 
 def download_file_from_google_drive(id, destination):
     URL = "https://docs.google.com/uc?export=download"
@@ -35,22 +67,6 @@ def save_response_content(response, destination):
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
-
-
-def Str(value):
-    if isinstance(value, list):
-        return " ".join(value)
-    if isinstance(value, basestring):
-        return value
-    return str(value)
-
-
-def Glob(value):
-    ret = glob.glob(value)
-    if (len(ret) < 1):
-        ret = [value]
-    return ret
-
 
 autoexec = ""
 
@@ -143,21 +159,11 @@ if (perguntar("Deseja configurar a raid") == "y"):
         confirmaexec("grub-install /dev/sdc")
 
 if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
-    os.chdir("/var/lib/vz/template/iso")
-    subprocess.call(
-        "wget -c https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.5-RELEASE-amd64.iso.gz", shell=True)
-    subprocess.call("gunzip" + Str(Glob("pfSense*.iso.gz")), shell=True)
-    subprocess.call(
-        "wget -c https://mirrors.gigenet.com/OSDN//clonezilla/72478/clonezilla-live-20200302-eoan-amd64.iso", shell=True)
-    subprocess.call(
-        "wget -c https://plug-mirror.rcac.purdue.edu/osdn//storage/g/s/sy/systemrescuecd/releases/6.1.3/systemrescuecd-amd64-6.1.3.iso", shell=True)
-    subprocess.call(
-        "wget -c https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso", shell=True)
-    subprocess.call(
-        "wget -c https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso", shell=True)
-    os.chdir("/var/lib/vz/template/cache")
+    downloadwgetisos()
+    print("Download finalizado")
 
-if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):   
+if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):
     file_id = '1CzTt6IBI3y4IJQ2U6hTA7u7A7E5soOu2'
-    destination = './zabbix.tar.gz'
+    destination = '/var/lib/vz/template/cache/zabbix.tar.gz'
     download_file_from_google_drive(file_id, destination)
+    print("Download finalizado")
