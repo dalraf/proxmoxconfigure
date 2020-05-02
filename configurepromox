@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
@@ -20,12 +20,14 @@ def confirmaexec(texto):
         if (str(resposta) == "y"):
             subprocess.call([str(texto)], shell=True)
         elif (str(resposta) == "a"):
-            autoexec=sim
+            autoexec = sim
             subprocess.call([str(texto)], shell=True)
 
+
 def perguntar(texto):
-    resposta=input(texto + " ?(y/n) ")
+    resposta = str(input(texto + " ?(y/n) "))
     return(resposta)
+
 
 if (perguntar("Deseja configurar o servidor com ansible") == "y"):
     subprocess.call(["apt-get", "-y", "install", "build-essential",
@@ -39,7 +41,7 @@ if (perguntar("Deseja configurar o servidor com ansible") == "y"):
                      "localhost,", "--connection=local", "installproxmox.yml"], shell=True)
 
 if (perguntar("Deseja configurar a raid") == "y"):
-    raid=perguntar("Qual tipo de raid (1, 10 ou 5)")
+    raid = perguntar("Qual tipo de raid (1, 10 ou 5)")
     if (raid == "1"):
         confirmaexec("sgdisk -R=/dev/sdb /dev/sda")
         confirmaexec("dd if=/dev/sda1 of=/dev/sdb1")
