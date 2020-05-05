@@ -170,6 +170,6 @@ if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):
 
 if (perguntar("Deseja baixa a imagem do pfsense?") == "y"):
     file_id = '1O67gPgLZCDOKI1jwdI7_UUfO62OX0WhE'
-    destination = '/var/lib/vz/dump/pfsense.vma.gz'
+    destination = '/var/lib/vz/dump/vzdump-qemu-pfsense.vma.gz'
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
