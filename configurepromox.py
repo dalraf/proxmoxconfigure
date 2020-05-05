@@ -163,7 +163,13 @@ if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
     print("Download finalizado")
 
 if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):
-    file_id = '1CzTt6IBI3y4IJQ2U6hTA7u7A7E5soOu2'
+    file_id = '1nSDoNYnx-9U6HZCXWBlPk601gJx_5yRB'
     destination = '/var/lib/vz/template/cache/zabbix.tar.gz'
+    download_file_from_google_drive(file_id, destination)
+    print("Download finalizado")
+
+if (perguntar("Deseja baixa a imagem do pfsense?") == "y"):
+    file_id = '1O67gPgLZCDOKI1jwdI7_UUfO62OX0WhE'
+    destination = '/var/lib/vz/dump/pfsense.vma.gz'
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
