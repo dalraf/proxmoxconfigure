@@ -168,8 +168,20 @@ if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
 
+if (perguntar("Deseja baixa a imagem do salt server?") == "y"):
+    file_id = '13JBrES_KuKYAfbkxjsoRcAvgITxQ2-Qf'
+    destination = '/var/lib/vz/template/cache/salt.tar.gz'
+    download_file_from_google_drive(file_id, destination)
+    print("Download finalizado")
+
 if (perguntar("Deseja baixa a imagem do pfsense?") == "y"):
     file_id = '1O67gPgLZCDOKI1jwdI7_UUfO62OX0WhE'
     destination = '/var/lib/vz/dump/vzdump-qemu-pfsense.vma.gz'
+    download_file_from_google_drive(file_id, destination)
+    print("Download finalizado")
+
+if (perguntar("Deseja baixa a imagem do xigmanas?") == "y"):
+    file_id = '1JYvMjy05tQUH7f3YX10vJIlKWtVvK8DB'
+    destination = '/var/lib/vz/dump/vzdump-qemu-xigmanas.vma.gz'
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
