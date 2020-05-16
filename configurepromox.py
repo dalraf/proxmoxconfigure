@@ -92,15 +92,13 @@ def perguntar(texto):
 
 
 if (perguntar("Deseja configurar o servidor com ansible") == "y"):
-    subprocess.call(["apt-get", "-y", "install", "build-essential",
-                     "libssl-dev", "libffi-dev", "python-dev"], shell=True)
-    subprocess.call(["apt-get", "-y", "install", "python-pip"], shell=True)
+    subprocess.call(["apt-get -y install build-essential libssl-dev libffi-dev python-dev"], shell=True)
+    subprocess.call(["apt-get -y install python-pip"], shell=True)
     #    pip install -U pip
-    subprocess.call(["pip", "install", "Jinja2"], shell=True)
-    subprocess.call(["pip", "install", "cryptography==2.0.3"], shell=True)
-    subprocess.call(["pip", "install", "ansible==2.3.2.0"], shell=True)
-    subprocess.call(["ansible-playbook", "--ask-vault-pass", "-i",
-                     "localhost,", "--connection=local", "installproxmox.yml"], shell=True)
+    subprocess.call(["pip install Jinja2"], shell=True)
+    subprocess.call(["pip install cryptography==2.0.3"], shell=True)
+    subprocess.call(["pip install ansible==2.3.2.0"], shell=True)
+    subprocess.call(["ansible-playbook --ask-vault-pass -i localhost --connection=local installproxmox.yml"], shell=True)
 
 if (perguntar("Deseja configurar a raid") == "y"):
     raid = perguntar("Qual tipo de raid (1, 10 ou 5)")
