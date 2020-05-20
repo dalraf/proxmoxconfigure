@@ -12,7 +12,6 @@ isolist = [
     "https://plug-mirror.rcac.purdue.edu/osdn//storage/g/s/sy/systemrescuecd/releases/6.1.3/systemrescuecd-amd64-6.1.3.iso",
     "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso"
     "https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso"
-
 ]
 
 def Str(value):
