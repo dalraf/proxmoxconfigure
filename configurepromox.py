@@ -158,6 +158,12 @@ if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
     downloadwgetisos()
     print("Download finalizado")
 
+if (perguntar("Deseja baixa a imagem do wpad?") == "y"):
+    file_id = '1ffaVvuC80MEsQifgpTPDCeuMoMvKxHfZ'
+    destination = '/var/lib/vz/template/cache/wpad.tar.lzo'
+    download_file_from_google_drive(file_id, destination)
+    print("Download finalizado")
+
 if (perguntar("Deseja baixa a imagem do zabbix?") == "y"):
     file_id = '1nSDoNYnx-9U6HZCXWBlPk601gJx_5yRB'
     destination = '/var/lib/vz/template/cache/zabbix.tar.gz'
@@ -181,3 +187,4 @@ if (perguntar("Deseja baixa a imagem do xigmanas?") == "y"):
     destination = '/var/lib/vz/dump/vzdump-qemu-xigmanas.vma.gz'
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
+
