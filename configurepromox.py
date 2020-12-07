@@ -99,7 +99,7 @@ if (perguntar("Deseja configurar o servidor com ansible") == "y"):
     subprocess.call(["ansible-playbook --ask-vault-pass -i localhost --connection=local installproxmox.yml"], shell=True)
 
 if (perguntar("Deseja configurar a raid") == "y"):
-    raid = perguntar("Qual tipo de raid (1, 10 ou 5)")
+    raid = perguntar("Qual tipo de raid (1, 10, 5-3 ou 5-4)")
     if (raid == "1"):
         confirmaexec("sgdisk -R=/dev/sdb /dev/sda")
         confirmaexec("dd if=/dev/sda1 of=/dev/sdb1")
@@ -135,7 +135,7 @@ if (perguntar("Deseja configurar a raid") == "y"):
         confirmaexec("grub-install /dev/sdb")
         confirmaexec("grub-install /dev/sdc")
         confirmaexec("grub-install /dev/sdd")
-    elif (raid == "5"):
+    elif (raid == "5-3"):
         confirmaexec("sgdisk -R=/dev/sdb /dev/sda")
         confirmaexec("sgdisk -R=/dev/sdc /dev/sda")
         confirmaexec("dd if=/dev/sda1 of=/dev/sdb1")
@@ -153,6 +153,29 @@ if (perguntar("Deseja configurar a raid") == "y"):
         confirmaexec("grub-install /dev/sda")
         confirmaexec("grub-install /dev/sdb")
         confirmaexec("grub-install /dev/sdc")
+    elif (raid == "5-4"):
+        confirmaexec("sgdisk -R=/dev/sdb /dev/sda")
+        confirmaexec("sgdisk -R=/dev/sdc /dev/sda")
+        confirmaexec("sgdisk -R=/dev/sdd /dev/sda")        
+        confirmaexec("dd if=/dev/sda1 of=/dev/sdb1")
+        confirmaexec("dd if=/dev/sda2 of=/dev/sdb2")
+        confirmaexec("dd if=/dev/sda1 of=/dev/sdc1")
+        confirmaexec("dd if=/dev/sda2 of=/dev/sdc2")
+        confirmaexec("dd if=/dev/sda1 of=/dev/sdd1")
+        confirmaexec("dd if=/dev/sda2 of=/dev/sdd2")
+        confirmaexec(
+            "mdadm --create -l5 -n4 /dev/md0 /dev/sdb3 /dev/sdc3 /dev/sdd3 missing")
+        confirmaexec("pvcreate /dev/md0")
+        confirmaexec("vgextend pve /dev/md0")
+        confirmaexec("pvmove /dev/sda3 /dev/md0")
+        confirmaexec("vgreduce pve /dev/sda3")
+        confirmaexec("mdadm --add /dev/md0 /dev/sda3")
+        confirmaexec("update-grub")
+        confirmaexec("grub-install /dev/sda")
+        confirmaexec("grub-install /dev/sdb")
+        confirmaexec("grub-install /dev/sdc")
+        confirmaexec("grub-install /dev/sdd")
+        
 
 if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
     downloadwgetisos()
