@@ -7,11 +7,11 @@ import subprocess
 import glob
 import requests
 isolist = [
-    "https://nyifiles.pfsense.org/mirror/downloads/pfSense-CE-2.4.5-RELEASE-amd64.iso.gz",
-    "https://mirrors.gigenet.com/OSDN//clonezilla/72478/clonezilla-live-20200302-eoan-amd64.iso",
-    "https://plug-mirror.rcac.purdue.edu/osdn//storage/g/s/sy/systemrescuecd/releases/6.1.3/systemrescuecd-amd64-6.1.3.iso",
+    "https://nyifiles.netgate.com/mirror/downloads/pfSense-CE-2.5.2-RELEASE-amd64.iso.gz",
+    "https://osdn.mirror.constant.com//clonezilla/74519/clonezilla-live-2.7.1-22-amd64.iso",
+    "https://razaoinfo.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/8.02/systemrescue-8.02-amd64.iso",
     "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso"
-    "https://ufpr.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.1.0.4/12.1.0.4.7542/XigmaNAS-x64-LiveCD-12.1.0.4.7542.iso"
+    "https://sonik.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.2.0.4/12.2.0.4.8458/XigmaNAS-x64-LiveCD-12.2.0.4.8458.iso"
 ]
 
 def Str(value):
