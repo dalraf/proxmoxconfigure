@@ -10,7 +10,7 @@ isolist = [
     "https://nyifiles.netgate.com/mirror/downloads/pfSense-CE-2.5.2-RELEASE-amd64.iso.gz",
     "https://osdn.mirror.constant.com//clonezilla/74519/clonezilla-live-2.7.1-22-amd64.iso",
     "https://razaoinfo.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/8.02/systemrescue-8.02-amd64.iso",
-    "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso"
+    "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.196-1/virtio-win-0.1.196.iso"
     "https://sonik.dl.sourceforge.net/project/xigmanas/XigmaNAS-12.2.0.4/12.2.0.4.8458/XigmaNAS-x64-LiveCD-12.2.0.4.8458.iso"
 ]
 
