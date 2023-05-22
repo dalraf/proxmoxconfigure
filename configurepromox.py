@@ -181,7 +181,7 @@ if (perguntar("Deseja baixa algumas isos padrão?") == "y"):
     print("Download finalizado")
 
 if (perguntar("Deseja baixa a imagem do wpad?") == "y"):
-    file_id = '1SRrhGvhwCy0y0pAiBFtqhzF86Sr-P0Ku'
+    file_id = '1AV434WHnUELNQKIsfP3kRB7S06KoaOr9'
     destination = '/var/lib/vz/template/cache/wpad.tar.gz'
     download_file_from_google_drive(file_id, destination)
     print("Download finalizado")
