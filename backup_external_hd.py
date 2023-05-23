@@ -7,8 +7,8 @@ from config import lista_rsync
 import time
 
 def run_wait(command):
-    print('Aguardando 5 segundos')
-    time.sleep(5)
+    print('Aguardando 3 segundos', flush=True)
+    time.sleep(3)
     print('Executando o comando  "%s"' % command)
     #subprocess.run(command)
 
