@@ -74,6 +74,8 @@ def rsync_copy():
         sys.exit(1)
 
 def finalizar_copia():
+    command = ('umount /opt/hd')
+    run_wait(command)
     command = ('cryptsetup luksClose backup')
     run_wait(command)
     print('Backup finalizado')
