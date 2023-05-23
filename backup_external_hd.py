@@ -67,7 +67,7 @@ def rsync_copy():
             print(index, ": ", l1)
         escolha = int(input('>>>>> '))
         origem_dir = lista_rsync[escolha][1]
-        command = 'rsync -rtv --delete %s /opt/hd' % origem_dir
+        command = 'screen -S backup_externo -dm "rsync -rtv --delete %s /opt/hd"' % origem_dir
         run_wait(command)
 
     else:
@@ -82,13 +82,18 @@ def finalizar_copia():
 
 
 def main():
-    lista_dispositivo = (select_device(find_device()))
-    volume = verify_partition(lista_dispositivo[0])
-    format_crypto(volume)
-    mount_crypto(volume)
-    format_ext4()
-    rsync_copy()
-    finalizar_copia()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'start':
+            lista_dispositivo = (select_device(find_device()))
+            volume = verify_partition(lista_dispositivo[0])
+            format_crypto(volume)
+            mount_crypto(volume)
+            format_ext4()
+            rsync_copy()
+        elif sys.argv[1] == 'stop':
+            finalizar_copia()
+    else:
+        print('Use:\nbackup_external_hd.py start\nbackup_external_hd.py stop')
 
 if __name__ == "__main__":
     main()
