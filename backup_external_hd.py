@@ -10,7 +10,7 @@ def run_wait(command):
     print('Aguardando 3 segundos', flush=True)
     time.sleep(3)
     print('Executando o comando  "%s"' % command)
-    #subprocess.run(command)
+    #subprocess.run(command, shell=True)
 
 
 def find_device():
