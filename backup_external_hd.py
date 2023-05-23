@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import subprocess
-from pprint import pprint
 import re
+import sys
+from config import lista_rsync
+import time
+
+def run_wait(command):
+    print('Aguardando 5 segundos')
+    time.sleep(5)
+    print('Executando o comando  "%s"' % command)
+    #subprocess.run(command)
+
 
 def find_device():
     lista_dispositivos = (
@@ -19,9 +28,65 @@ def select_device(lista_dispositivos):
     escolha = int(input('>>>>> '))
     return lista_dispositivos[escolha]
 
+def verify_partition(dispositivo):
+    vol_raw = subprocess.check_output('lsblk --output NAME -n -l ' + dispositivo, shell=True).decode()
+    vol_atual = [i for i in vol_raw.split('\n') if re.search(r'sd[a-z]1',i)]
+    return '/dev/' + vol_atual[0]
+
+def format_crypto(volume):
+    resposta = input('Deseja formatar volume %s em modo crypto? (s/n):' % volume)
+    if resposta == 's':
+        command = ('cryptsetup luksFormat ' + volume)
+        run_wait(command)
+    else:
+        sys.exit(1)
+
+def mount_crypto(volume):
+    resposta = input('Deseja montar volume %s em modo crypto? (s/n):' % volume)
+    if resposta == 's':
+        command = ('cryptsetup luksOpen %s backup ' % volume)
+        run_wait(command)
+    else:
+        sys.exit(1)
+
+def format_ext4():
+    resposta = input('Deseja formatar e montar o dispositivo virtual de backup ? (s/n):')
+    if resposta == 's':
+        command = ('mkfs.ext4 /dev/mapper/backup')
+        run_wait(command)
+        command = ('mount /dev/mapper/backup /opt/hd')
+        run_wait(command)
+    else:
+        sys.exit(1)
+
+def rsync_copy():
+    resposta = input('Deseja iniciar a copia do backup? (s/n):')
+    if resposta == 's':
+        print('Escolha a Origem:')
+        for index, (l1, l2) in enumerate(lista_rsync):
+            print(index, ": ", l1)
+        escolha = int(input('>>>>> '))
+        origem_dir = lista_rsync[escolha][1]
+        command = 'rsync -rtv --delete %s /opt/hd' % origem_dir
+        run_wait(command)
+
+    else:
+        sys.exit(1)
+
+def finalizar_copia():
+    command = ('cryptsetup luksClose backup')
+    run_wait(command)
+    print('Backup finalizado')
+
+
 def main():
     lista_dispositivo = (select_device(find_device()))
-    print(lista_dispositivo)
+    volume = verify_partition(lista_dispositivo[0])
+    format_crypto(volume)
+    mount_crypto(volume)
+    format_ext4()
+    rsync_copy()
+    finalizar_copia()
 
 if __name__ == "__main__":
     main()
