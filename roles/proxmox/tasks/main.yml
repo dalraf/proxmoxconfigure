@@ -15,25 +15,11 @@
     - instalarpacotes
   ignore_errors: yes
 
-
 - name: Verificar serviço cron
   service: name=cron state=started enabled=yes
 
 - name: Verificar serviço ssh
   service: name=ssh state=started enabled=yes
-
-- name: Parar ntp
-  service: name=ntp state=stopped enabled=false
-  when: (( ansible_distribution_version == "7.8" ))
-
-- name: Copiar postfix main.cf
-  copy: dest=/etc/postfix/main.cf src=proxmox/etc/postfix/main.cf mode=0644 owner=root group=root
-
-- name: Copiar modules
-  copy: dest=/etc/modules src=proxmox/etc/modules  mode=0644 owner=root group=root
-
-- name: Copiar 99-arcom.rules
-  copy: dest=/etc/udev/rules.d/99-arcom.rules src=proxmox/etc/udev/rules.d/99-arcom.rules mode=0644 owner=root group=root
 
 - name: Verificar permissões do /etc/ssh
   file: path=/etc/ssh state=directory owner=root group=root mode=0755
@@ -44,9 +30,6 @@
 
 - name: Copiar configuração stunnel
   copy: dest=/etc/stunnel src=proxmox/etc/stunnel/  mode=0644 owner=root group=root
-
-- name: Copia ntp
-  copy: dest=/etc/default/ntp src=proxmox/etc/default/ntp  mode=0644 owner=root group=root
 
 - name: Copia .gitignore
   copy: dest=/etc/.gitignore src=proxmox/proxmoxgitignoreetc  mode=0700 owner=root group=root

@@ -1,5 +1,0 @@
-deb http://ftp.br.debian.org/debian wheezy main contrib
-
-# security updates
-deb http://security.debian.org/ wheezy/updates main contrib
-

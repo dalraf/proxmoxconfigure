@@ -1,2 +1,0 @@
-Use o comando abaixo para gerar o arquivos de revoque
-for i in  cname1 cname2 ; do /etc/openvpn/easy-rsa/revoke-full $i ; cat /etc/openvpn/easy-rsa/keys/crl.pem >> crl.pem ; done
