@@ -102,7 +102,7 @@ def finalizar_copia():
 
 
 while True:
-    menu = ["Iniciar backup", "Verificar backup", "Finalizar backup", "Sair"]
+    menu = ["Iniciar backup", "Verificar backup", "Desmontar HD", "Sair"]
 
     print("----------------------------------")
     print("Menu de opções:")
