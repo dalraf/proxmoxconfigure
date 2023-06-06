@@ -10,7 +10,7 @@
 
 - name: Instala pacotes do promox
   apt: name={{ item }} state=present update_cache=no
-  with_items: "{{packagesproxmox4}}"
+  with_items: "{{packagesproxmox}}"
   tags:
     - instalarpacotes
   ignore_errors: yes
@@ -34,13 +34,6 @@
 
 - name: Copiar 99-arcom.rules
   copy: dest=/etc/udev/rules.d/99-arcom.rules src=proxmox/etc/udev/rules.d/99-arcom.rules mode=0644 owner=root group=root
-
-- name: Copiar openvpn
-  copy: dest=/etc/openvpn src=proxmox/etc/openvpn/  mode=0644 owner=root group=root  force=no
-
-- name: Marcar como executavel openvpn
-  copy: dest={{ item }} src=proxmox{{ item }}  mode=0755 owner=root group=root force=yes
-  with_items: "{{filesexecopenvpn}}"
 
 - name: Verificar permissões do /etc/ssh
   file: path=/etc/ssh state=directory owner=root group=root mode=0755
