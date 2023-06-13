@@ -40,16 +40,20 @@ def find_device():
         i.strip().split(" ") for i in lista_dispositivos if re.search("sd", i)
     ]
     lista_dispositivos = [[j for j in i if j != ""] for i in lista_dispositivos]
-    verify_device(lista_dispositivos)
+    lista_dispositivos = verify_device(lista_dispositivos)
     return lista_dispositivos
 
 
 def select_device(lista_dispositivos):
-    print("Escolha o dispositivo")
-    for index, var in enumerate(lista_dispositivos):
-        print(index, ": ", " ".join(var[1:]))
-    escolha = int(input(">>>>> "))
-    return lista_dispositivos[escolha]
+    if len(lista_dispositivos) > 0:
+        print("Escolha o dispositivo")
+        for index, var in enumerate(lista_dispositivos):
+            print(index, ": ", " ".join(var[1:]))
+        escolha = int(input(">>>>> "))
+        return lista_dispositivos[escolha]
+    else:
+        print('Não foram encontrados dispositivos')
+        sys.exit(1)
 
 def verify_partition(dispositivo):
     vol_raw = run_hide("lsblk --output NAME -n -l " + dispositivo)
