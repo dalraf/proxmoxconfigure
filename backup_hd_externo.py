@@ -32,7 +32,7 @@ def verify_device(lista_dispositivos):
         device_head = device[1].replace('/dev/','')
         print(text_verify)
         print(device_head)
-        if device_head in text_verify:
+        if text_verify.find(device_head):
             del device
     return lista_dispositivos
 
