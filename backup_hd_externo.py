@@ -24,17 +24,19 @@ def run_hide(command):
 
 
 def verify_device(lista_dispositivos):
-    text_fstab = run_hide('cat /etc/fstab')
-    text_raid = run_hide('cat /proc/mdstat')
-    text_lvm = run_hide('pvdisplay')
-    text_verify = text_fstab + text_raid + text_lvm
+    lista_fstab = run_hide('cat /etc/fstab').split('\n')
+    lista_raid = run_hide('cat /proc/mdstat').split('\n')
+    lista_lvm = run_hide('pvdisplay -s').split('\n')
+    lista_dispositivos_filtrados = []
     for device in lista_dispositivos:
+        add_device = True
         device_head = device[1].replace('/dev/','')
-        print(text_verify)
-        print(device_head)
-        if text_verify.find(device_head):
-            del device
-    return lista_dispositivos
+        for line in lista_fstab + lista_raid + lista_lvm:
+            if device_head in line:
+                add_device = False
+        if add_device:
+            lista_dispositivos_filtrados.append(device)    
+    return lista_dispositivos_filtrados
 
 
 def find_device():
