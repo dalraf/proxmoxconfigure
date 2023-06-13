@@ -23,12 +23,24 @@ def run_hide(command):
     return saida
 
 
+def verify_device(lista_dispositivos):
+    text_fstab = run_hide('cat /etc/fstab')
+    text_raid = run_hide('cat /proc/mdstat')
+    text_lvm = run_hide('pvdisplay')
+    text_verify = text_fstab + text_raid + text_lvm
+    for device in lista_dispositivos:
+        if device in text_verify:
+            del device
+    return lista_dispositivos
+
+
 def find_device():
     lista_dispositivos = run_hide("lshw -class disk -short").split("\n")
     lista_dispositivos = [
         i.strip().split(" ") for i in lista_dispositivos if re.search("sd", i)
     ]
     lista_dispositivos = [[j for j in i if j != ""] for i in lista_dispositivos]
+    verify_device(lista_dispositivos)
     return lista_dispositivos
 
 
@@ -38,7 +50,6 @@ def select_device(lista_dispositivos):
         print(index, ": ", " ".join(var[1:]))
     escolha = int(input(">>>>> "))
     return lista_dispositivos[escolha]
-
 
 def verify_partition(dispositivo):
     vol_raw = run_hide("lsblk --output NAME -n -l " + dispositivo)
