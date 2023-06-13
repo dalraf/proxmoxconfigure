@@ -29,7 +29,10 @@ def verify_device(lista_dispositivos):
     text_lvm = run_hide('pvdisplay')
     text_verify = text_fstab + text_raid + text_lvm
     for device in lista_dispositivos:
-        if device[1].replace('/dev/','') in text_verify:
+        device_head = device[1].replace('/dev/','')
+        print(text_verify)
+        print(device_head)
+        if device_head in text_verify:
             del device
     return lista_dispositivos
 
