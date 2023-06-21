@@ -99,7 +99,7 @@ def rsync_copy():
             print(index, ": ", l1)
         escolha = int(input(">>>>> "))
         origem_dir = lista_rsync_coopsef[escolha][1]
-        command = "rm /var/hd_copy.log"
+        command = "rm /var/log/hd_copy.log"
         try:
             run_padrao(command)
         except Exception as e:
