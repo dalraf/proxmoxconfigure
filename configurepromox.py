@@ -91,7 +91,7 @@ def perguntar(texto):
 
 
 if (perguntar("Deseja configurar o servidor com ansible") == "y"):
-    subprocess.call(["apt-get -y install build-essential libssl-dev libffi-dev python-dev"], shell=True)
+    subprocess.call(["apt-get -y install build-essential libssl-dev libffi-dev python-dev-is-python3"], shell=True)
     subprocess.call(["apt-get -y install python3-pip ansible"], shell=True)
     subprocess.call(["ansible-playbook --ask-vault-pass -i localhost --connection=local installproxmox.yml"], shell=True)
 
