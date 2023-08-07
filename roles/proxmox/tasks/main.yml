@@ -4,7 +4,7 @@
   register: pvelista
 
 - name: Renomear pve lista
-  shell: rm /etc/apt/sources.list.d/pve-enterprise.list ; apt-get update
+  shell: rm /etc/apt/sources.list.d/pve-enterprise.list ; rm /etc/apt/sources.list.d/ceph.list; apt-get update
   when: pvelista
   ignore_errors: yes
 
