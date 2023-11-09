@@ -32,7 +32,7 @@ def downloadwgetisos():
     os.chdir("/var/lib/vz/template/iso")
     for iso in isolist:
         subprocess.call(
-            "wget -c " + iso, shell=True,)
+            "wget --no-check-certificate -c " + iso, shell=True,)
     subprocess.call("gunzip " + Str(Glob("pfSense*.iso.gz")), shell=True)
     
 
