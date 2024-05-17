@@ -10,7 +10,7 @@ isolist = [
     "https://atxfiles.netgate.com/mirror/downloads/pfSense-CE-2.7.2-RELEASE-amd64.iso.gz",
     "https://sinalbr.dl.sourceforge.net/project/systemrescuecd/sysresccd-x86/10.02/systemrescue-10.02-amd64.iso",
     "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso",
-    "https://sinalbr.dl.sourceforge.net/project/xigmanas/XigmaNAS-13.2.0.5/13.2.0.5.9876/XigmaNAS-x64-LiveCD-13.2.0.5.9876.iso"
+    "https://sitsa.dl.sourceforge.net/project/xigmanas/XigmaNAS-13.3.0.5/13.3.0.5.9979/XigmaNAS-x64-LiveCD-13.3.0.5.9979.iso?viasf=1"
 ]
 
 def Str(value):
