@@ -1,14 +1,5 @@
 
-- name: Verificar lista pve
-  stat: path=/etc/apt/sources.list.d/pve-enterprise.list
-  register: pvelista
-
-- name: Renomear pve lista
-  shell: rm /etc/apt/sources.list.d/pve-enterprise.list ; rm /etc/apt/sources.list.d/ceph.list; apt-get update
-  when: pvelista
-  ignore_errors: yes
-
-- name: Instala pacotes do promox
+- name: Instala pacotes do proxmox
   apt: name={{ item }} state=present update_cache=no
   with_items: "{{packagesproxmox}}"
   tags:
