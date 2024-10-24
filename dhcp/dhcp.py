@@ -1,34 +1,31 @@
-import os
-import re
 import subprocess
+import re
 import ipaddress
 
-# Função para capturar o IP da interface vmbr0
-def get_ip_address(interface):
+# Função para capturar o gateway a partir da rota default
+def get_gateway():
     try:
-        result = subprocess.run(['ip', 'addr', 'show', interface], stdout=subprocess.PIPE, text=True)
-        ip_match = re.search(r'inet\s+([\d.]+)', result.stdout)
-        if ip_match:
-            return ip_match.group(1)
+        result = subprocess.run(['ip', 'route', 'show', 'default'], stdout=subprocess.PIPE, text=True)
+        # Captura o gateway da rota default
+        gateway_match = re.search(r'default via ([\d.]+)', result.stdout)
+        
+        if gateway_match:
+            gateway = gateway_match.group(1)
+            return gateway
         else:
-            raise ValueError(f"Não foi possível capturar o IP da interface {interface}.")
+            raise ValueError("Não foi possível capturar o gateway.")
     except Exception as e:
-        print(f"Erro ao capturar o IP: {e}")
+        print(f"Erro ao capturar o gateway: {e}")
         return None
 
-# Função para calcular a rede baseada no IP
-def calculate_network(ip_address):
-    ip_interface = ipaddress.ip_interface(f"{ip_address}/24")
-    network = ip_interface.network
-    return network
+# Função para criar o arquivo dhcp.conf baseado no IP do gateway
+def create_dhcp_conf(gateway):
+    # Considera a máscara /24
+    gateway_ip = ipaddress.IPv4Address(gateway)
+    network = ipaddress.IPv4Network(f"{gateway_ip}/24", strict=False)
 
-# Função para criar o arquivo dhcp.conf baseado na rede calculada
-def create_dhcp_conf(network):
-    # Calcula o início e o fim da faixa DHCP
-    network_address = ipaddress.IPv4Network(network)
-    dhcp_start = str(list(network_address.hosts())[200])
-    dhcp_end = str(list(network_address.hosts())[220])
-    gateway = str(list(network_address.hosts())[0])  # Supondo que o gateway seja o segundo IP da rede
+    dhcp_start = str(list(network.hosts())[200])  # Início da faixa DHCP
+    dhcp_end = str(list(network.hosts())[220])    # Fim da faixa DHCP
 
     conf_content = f"""
 interface=vmbr0                    # Interface de rede
@@ -61,12 +58,9 @@ def start_dnsmasq():
         print(f"Erro ao executar o dnsmasq: {e}")
 
 if __name__ == "__main__":
-    interface = 'vmbr0'
-    ip_address = get_ip_address(interface)
+    gateway = get_gateway()
 
-    if ip_address:
-        print(f"Endereço IP capturado na interface {interface}: {ip_address}")
-        network = calculate_network(ip_address)
-        print(f"Rede calculada: {network}")
-        create_dhcp_conf(network)
+    if gateway:
+        print(f"Gateway capturado: {gateway}")
+        create_dhcp_conf(gateway)
         start_dnsmasq()
