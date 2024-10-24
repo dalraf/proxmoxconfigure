@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import subprocess
 import re
 import ipaddress
@@ -25,6 +24,9 @@ def create_dhcp_conf(gateway):
     # Considera a máscara /24
     gateway_ip = ipaddress.IPv4Address(gateway)
     network = ipaddress.IPv4Network(f"{gateway_ip}/24", strict=False)
+    
+    # Gera a máscara de rede no formato decimal (ex: 255.255.255.0)
+    netmask = network.netmask
 
     dhcp_start = str(list(network.hosts())[200])  # Início da faixa DHCP
     dhcp_end = str(list(network.hosts())[220])    # Fim da faixa DHCP
@@ -40,7 +42,7 @@ dhcp-option=3,{gateway}            # 3 = gateway, IP do gateway
 dhcp-option=6,8.8.8.8,1.1.1.1      # 6 = DNS server, pode definir mais de um
 
 # Define a máscara de rede
-dhcp-option=1,255.255.255.0        # 1 = subnet mask
+dhcp-option=1,{netmask}            # 1 = subnet mask
 
 port=0
 """
