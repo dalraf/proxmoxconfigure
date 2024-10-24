@@ -1,5 +1,5 @@
 bcknumerodecopias: 2
 cleanupbackup: false
 
-packagesproxmox: ["rsync", "git-core", "emacs-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted", "smbclient" , "stunnel4" , "ebtables", "unzip", "freeipmi-tools", 'links' , 'ipmitool', 'ipmiutil', 'network-manager', 'vim', 'tuned']
+packagesproxmox: ["rsync", "git-core", "emacs-nox", "iftop", "openvpn", "nagios-nrpe-server", "nmap", "atop", "screen", "smartmontools", "sudo", "ntpdate", "lshw", "lm-sensors", "ntfs-3g", "kpartx" ,"mdadm", "metastore", "stress", "iptables-persistent", "parted", "smbclient" , "stunnel4" , "ebtables", "unzip", "freeipmi-tools", 'links' , 'ipmitool', 'ipmiutil', 'network-manager', 'vim', 'tuned', 'dnsmasq']
 
