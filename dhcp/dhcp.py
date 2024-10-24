@@ -28,7 +28,7 @@ def create_dhcp_conf(network):
     network_address = ipaddress.IPv4Network(network)
     dhcp_start = str(list(network_address.hosts())[200])
     dhcp_end = str(list(network_address.hosts())[220])
-    gateway = str(list(network_address.hosts())[1])  # Supondo que o gateway seja o segundo IP da rede
+    gateway = str(list(network_address.hosts())[0])  # Supondo que o gateway seja o segundo IP da rede
 
     conf_content = f"""
 interface=vmbr0                    # Interface de rede
